@@ -12,6 +12,7 @@ package lab7_progra2;
 import java.awt.*;
 import javax.swing.*;
 import java.io.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.*;
 public class WordNuevo  extends JPanel{
     public JButton archivo;
@@ -179,6 +180,39 @@ public class WordNuevo  extends JPanel{
         Cargar.setHorizontalAlignment(SwingConstants.LEFT);
 
         Cargar .addActionListener(e -> {
+           
+
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de este programa (*.wrd)", "wrd");
+
+            chooser.setFileFilter(filtro);
+            chooser.setAcceptAllFileFilterUsed(false);
+
+            int resultado = chooser.showOpenDialog(null);
+
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                File archivoSeleccionado = chooser.getSelectedFile();
+                 if (archivoSeleccionado != null) {
+                     try{
+                        WordArchivos.abrir(campo.label, campo.editor, archivoSeleccionado);
+
+                        archivo.setVisible(true);
+                        campo.IsExistente = true;
+                        padre.cambiarGuardar();
+                        
+                        Guardarc.setVisible(true);
+
+                        principal.show(cards, "editor");
+                     }catch (IOException ev){
+                         
+                     }catch (BadLocationException ev){
+                         
+                     }
+                }
+                
+            }
+            
+           
             
         });
 

@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import javax.swing.text.*;
+import javax.swing.filechooser.*;
 
 public class WordGuardarComo  extends JPanel{
     public JButton archivo;
@@ -198,21 +199,34 @@ public class WordGuardarComo  extends JPanel{
         Cargar.setHorizontalAlignment(SwingConstants.LEFT);
 
         Cargar.addActionListener(e -> {
-            String nombreArchivo = JOptionPane.showInputDialog(this, "Ingrese el nombre del archivo a cargar:", "Cargar Archivo", JOptionPane.QUESTION_MESSAGE);
-            
-            if (nombreArchivo != null && !nombreArchivo.trim().isEmpty()) {
-                File archivoACargar = new File("src/datos/windows/Z/infoUsuarios/misDocumentos/" + nombreArchivo.trim() + ".wrd");
-                
-                try {
-                    WordArchivos.abrir(campo.label, campo.editor, archivoACargar);
-                    principal.show(cards, "editor");
-                } catch (FileNotFoundException ex) {
-                    labele.setText("El archivo no existe");
-                    timer.start();
-                } catch (Exception ex) {
-                    labele.setText("Error al cargar el archivo");
-                    timer.start();
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de este programa (*.wrd)", "wrd");
+
+            chooser.setFileFilter(filtro);
+            chooser.setAcceptAllFileFilterUsed(false);
+
+            int resultado = chooser.showOpenDialog(null);
+
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                File archivoSeleccionado = chooser.getSelectedFile();
+                 if (archivoSeleccionado != null) {
+                     try{
+                        WordArchivos.abrir(campo.label, campo.editor, archivoSeleccionado);
+
+                        archivo.setVisible(true);
+                        campo.IsExistente = true;
+                        padre.cambiarGuardar();
+                        
+                        Guardarc.setVisible(true);
+
+                        principal.show(cards, "editor");
+                     }catch (IOException ev){
+                         
+                     }catch (BadLocationException ev){
+                         
+                     }
                 }
+                
             }
         });
         
