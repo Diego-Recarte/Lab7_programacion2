@@ -5,13 +5,14 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-
+import java.io.*;
 public class Editor extends JPanel{
     
     public boolean IsExistente;
     public JLabel label;
     public JTextPane editor;
     private JScrollPane scrollEditor;
+    public File ruta;
     
     public Editor (Component padre, CardLayout principal, JPanel cards){
         IsExistente = false;

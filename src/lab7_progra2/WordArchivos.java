@@ -63,11 +63,7 @@ public class WordArchivos {
         }
     }
 
-    public static boolean guardar(
-            JTextPane editor,
-            File archivo,
-            String nombre,
-            boolean isGuardarComo) throws IOException {
+    public static boolean guardar(JTextPane editor, File archivo,String nombre, boolean isGuardarComo) throws IOException {
 
         synchronized (LOCK_ARCHIVOS) {
             if (!archivo.exists()) {
@@ -76,8 +72,7 @@ public class WordArchivos {
 
             ArrayList<Object> elementos = extraerElementos(editor);
 
-            try (RandomAccessFile raf
-                    = new RandomAccessFile(archivo, "rw")) {
+            try (RandomAccessFile raf = new RandomAccessFile(archivo, "rw")) {
 
                 raf.setLength(0);
                 raf.writeUTF(FIRMA);

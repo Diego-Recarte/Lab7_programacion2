@@ -134,8 +134,8 @@ public class WordGuardarComo  extends JPanel{
            
             boolean resultado= false;
             try{
-            
-                resultado =WordArchivos.guardarComo(campo.editor, new File ("datos/Documentos/"+campo.label.getText().trim()+".wrd"),campo.label.getText(), false);
+              
+                resultado =WordArchivos.guardar(campo.editor, campo.ruta,campo.label.getText(), false);
             }catch(IOException ec){
                     
             }
@@ -218,6 +218,7 @@ public class WordGuardarComo  extends JPanel{
                         padre.cambiarGuardar();
                         
                         Guardarc.setVisible(true);
+                        campo.ruta=archivoSeleccionado;
 
                         principal.show(cards, "editor");
                      }catch (IOException ev){
@@ -308,9 +309,11 @@ public class WordGuardarComo  extends JPanel{
                 campo.ingresarContenido(null, nombre.getText().trim());
             }else{
                boolean resultado= false;
+               File acceso =new File ("datos/Documentos/"+nombre.getText().trim()+".wrd");
             
                 try{
-                  resultado =WordArchivos.guardarComo(campo.editor, new File ("datos/Documentos/"+nombre.getText().trim()+".wrd"),nombre.getText(), true);
+                  
+                  resultado =WordArchivos.guardarComo(campo.editor, acceso,nombre.getText(), true);
                 }catch (IOException er){
 
                 }
@@ -319,6 +322,7 @@ public class WordGuardarComo  extends JPanel{
                 if (resultado){
                       campo.IsExistente= true;
                         padre.cambiarGuardar();
+                        campo.ruta=acceso;
                     principal.show(cards, "editor");
                 }else{
                     labele.setText("Ya existe un archivo con ese nombre");

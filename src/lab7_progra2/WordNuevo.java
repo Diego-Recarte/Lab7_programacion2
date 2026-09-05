@@ -126,7 +126,7 @@ public class WordNuevo  extends JPanel{
             
              boolean resultado= false;
             try{
-              resultado =WordArchivos.guardarComo(campo.editor, new File ("src/datos/windows/Z/infoUsuarios/"+"/misDocumentos/"+campo.label.getText().trim()+".wrd"),campo.label.getText(), false);
+              resultado =WordArchivos.guardar(campo.editor, campo.ruta,campo.label.getText(), false);
             }catch (IOException er){
                 
             };
@@ -199,7 +199,8 @@ public class WordNuevo  extends JPanel{
                         archivo.setVisible(true);
                         campo.IsExistente = true;
                         padre.cambiarGuardar();
-                        
+                        campo.ruta=null;
+                        campo.ruta=archivoSeleccionado;
                         Guardarc.setVisible(true);
 
                         principal.show(cards, "editor");
