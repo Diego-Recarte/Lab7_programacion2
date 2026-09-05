@@ -45,7 +45,7 @@ public class WordGuardarComo  extends JPanel{
         }catch(IOException e){
                 
         }
-        Inicializarbotones(campo,principal,  cards);
+        Inicializarbotones(campo,principal,  cards, padre);
         
         
     }
@@ -134,7 +134,7 @@ public class WordGuardarComo  extends JPanel{
             boolean resultado= false;
             try{
             
-                resultado =WordArchivos.guardarComo(campo.editor, new File ("src/datos/windows/Z/infoUsuarios/"+"/misDocumentos/"+campo.label.getText().trim()+".wrd"),campo.label.getText(), false);
+                resultado =WordArchivos.guardarComo(campo.editor, new File ("datos/Documentos/"+campo.label.getText().trim()+".wrd"),campo.label.getText(), false);
             }catch(IOException ec){
                     
             }
@@ -232,7 +232,7 @@ public class WordGuardarComo  extends JPanel{
 
     }
     
-   private void Inicializarbotones(Editor campo, CardLayout principal, JPanel cards){
+   private void Inicializarbotones(Editor campo, CardLayout principal, JPanel cards, Pantalla padre){
         JPanel Panelenvuelto =new JPanel(new GridBagLayout());
         Panelenvuelto.setOpaque(false);
         
@@ -290,26 +290,32 @@ public class WordGuardarComo  extends JPanel{
 
         boton3.addActionListener(e -> {
             
-            if (!nombre.getText().trim().equals("")){
-            campo.ingresarContenido(null, nombre.getText().trim());
-            boolean resultado= false;
-            try{
-              resultado =WordArchivos.guardarComo(campo.editor, new File ("src/datos/windows/Z/infoUsuarios/"+"/misDocumentos/"+nombre.getText().trim()+".wrd"),nombre.getText(), true);
-            }catch (IOException er){
-                
-            }
-            nombre.setText("");
-            
-            if (resultado){
-                principal.show(cards, "editor");
+            if (nombre.getText().trim().equals("")){
+                campo.ingresarContenido(null, nombre.getText().trim());
             }else{
-                labele.setText("Ya existe un archivo con ese nombre");
-                timer.start();
+               boolean resultado= false;
+            
+                try{
+                  resultado =WordArchivos.guardarComo(campo.editor, new File ("datos/Documentos/"+nombre.getText().trim()+".wrd"),nombre.getText(), true);
+                }catch (IOException er){
+
+                }
+                nombre.setText("");
+
+                if (resultado){
+                      campo.IsExistente= true;
+                        padre.cambiarGuardar();
+                    principal.show(cards, "editor");
+                }else{
+                    labele.setText("Ya existe un archivo con ese nombre");
+                    timer.start();
+                }
             }
             
+                
             
             
-            }
+            
         });
         
          labele = new JLabel("");
