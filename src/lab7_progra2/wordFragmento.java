@@ -22,8 +22,7 @@ public class wordFragmento {
     private boolean subrayado;
     private boolean tachado;
 
-    public wordFragmento(String texto, String fuente, int tamano, Color color,
-                         boolean negrita, boolean cursiva, boolean subrayado, boolean tachado) {
+    public wordFragmento(String texto, String fuente, int tamano, Color color, boolean negrita, boolean cursiva, boolean subrayado, boolean tachado) {
         this.texto = texto;
         this.fuente = fuente;
         this.tamano = tamano;

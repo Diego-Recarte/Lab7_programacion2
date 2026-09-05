@@ -26,6 +26,30 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+/**
+ Elementos del archivo
+  1. Firma
+     Método: writeUTF()
+     Tamaño: indefinido
+ 
+  2. Versión
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  3. Nombre del documento
+     Método: writeUTF()
+     Tamaño: indefinido
+ 
+  4. Cantidad de elementos
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  5. Elementos del documento
+     Método: variable
+     Tamaño: variable
+
+ */
+
 public class WordArchivos {
 
     private static final Object LOCK_ARCHIVOS = new Object();
@@ -42,6 +66,46 @@ public class WordArchivos {
     public static File archivoDocumento(String nombre) {
         return new File(CARPETA_DOCUMENTOS, nombre.trim() + EXTENSION);
     }
+    
+ /**
+ Elementos del texto
+  1. Tipo de elemento
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  2. Texto
+     Método: writeUTF()
+     Tamaño: indefinido
+ 
+  3. Fuente
+     Método: writeUTF()
+     Tamaño: indefinido
+
+ 4. Tamaño de fuente
+    Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  5. Color
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  6. Negrita
+     Método: writeBoolean()
+    Tamaño: 1 byte
+
+  7. Cursiva
+     Método: writeBoolean()
+     Tamaño: 1 byte
+ 
+  8. Subrayado
+     Método: writeBoolean()
+     Tamaño: 1 byte
+ 
+  9. Tachado
+     Método: writeBoolean()
+     Tamaño: 1 byte
+ 
+ */
 
     public static boolean guardarComo(JTextPane editor, File archivo, String nombre, boolean isGuardarComo)
             throws WordException {
@@ -178,7 +242,26 @@ public class WordArchivos {
         raf.writeBoolean(fragmento.isSubrayado());
         raf.writeBoolean(fragmento.isTachado());
     }
-
+/**
+ tabla
+ 
+  1. Tipo de elemento
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  2. Filas
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  3. Columnas
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  4. Celdas de la tabla
+     Método: variable
+     Tamaño: variable
+ 
+ */
     private static void escribirTabla(RandomAccessFile raf, TablaEditor tabla)
             throws IOException, WordException {
 
@@ -250,8 +333,7 @@ public class WordArchivos {
 
             nombre = raf.readUTF();
             if (nombre.trim().isEmpty()) {
-                throw new WordException.DatosInvalidosException(
-                        "El nombre del documento está vacío.");
+                throw new WordException.DatosInvalidosException( "El nombre del documento está vacío.");
             }
 
             int cantidadElementos = raf.readInt();
@@ -264,14 +346,11 @@ public class WordArchivos {
             }
 
         } catch (EOFException e) {
-            throw new WordException.ArchivoCorruptoException(
-                    "El archivo está truncado o corrupto.", e);
+            throw new WordException.ArchivoCorruptoException("El archivo está truncado o corrupto.", e);
         } catch (IOException e) {
-            throw new WordException.ErrorEscrituraException(
-                    "No se pudo leer el archivo: " + e.getMessage(), e);
+            throw new WordException.ErrorEscrituraException( "No se pudo leer el archivo: " + e.getMessage(), e);
         } catch (BadLocationException e) {
-            throw new WordException.ErrorEditorException(
-                    "No se pudo reconstruir el contenido del documento.", e);
+            throw new WordException.ErrorEditorException(  "No se pudo reconstruir el contenido del documento.", e);
         }
 
         try {
@@ -324,6 +403,42 @@ public class WordArchivos {
 
         documento.insertString(documento.getLength(), texto, atributos);
     }
+    
+/**
+  Celdas de tabla
+  1. Texto
+     Método: writeUTF()
+     Tamaño: indefinido
+ 
+  2. Fuente
+     Método: writeUTF()
+     Tamaño: indefinido
+ 
+  3. Tamaño de fuente
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  4. Color
+     Método: writeInt()
+     Tamaño: 4 bytes
+ 
+  5. Negrita
+     Método: writeBoolean()
+     Tamaño: 1 byte
+ 
+  6. Cursiva
+     Método: writeBoolean()
+     Tamaño: 1 byte
+ 
+  7. Subrayado
+     Método: writeBoolean()
+     Tamaño: 1 byte
+ 
+  8. Tachado
+     Método: writeBoolean()
+    Tamaño: 1 byte
+
+ */
 
     private static void leerTabla(RandomAccessFile raf, StyledDocument documento)
             throws IOException, WordException {
