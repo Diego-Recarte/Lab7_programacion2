@@ -1,19 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package lab7_progra2;
 
-/**
- *
- * @author denam
- */
+package lab7_progra2;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+
 public class Editor extends JPanel{
     
     public boolean IsExistente;
@@ -165,7 +158,7 @@ public class Editor extends JPanel{
         tamaño.add(tam16);
         tamaño.add(tam17);
        
-        barra.add(Box.createHorizontalStrut(400));
+        barra.add(Box.createHorizontalStrut(200));
         barra.add(tamaño);
         barra.add(Box.createHorizontalStrut(30));
         
@@ -211,11 +204,65 @@ public class Editor extends JPanel{
         
         barra.add(fuente);
         barra.add(Box.createHorizontalStrut(30));
+        
+        // --- INICIO CÓDIGO NUEVO PARA ESTILOS ---
+        JMenu estilos = new JMenu("Estilos");
+        estilos.setForeground(new Color(35, 35, 35));
+        estilos.setFont(new Font("Arial", Font.BOLD, 14));
+        estilos.setOpaque(false);
+        estilos.setBorderPainted(false);
+        estilos.setHorizontalAlignment(SwingConstants.CENTER);
+        estilos.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+
+        JMenuItem itemNegrita = new JMenuItem("Negrita");
+        ajustesitem(itemNegrita);
+        itemNegrita.addActionListener(e -> {
+            SimpleAttributeSet atributos = new SimpleAttributeSet();
+            StyleConstants.setBold(atributos, true);
+            editor.setCharacterAttributes(atributos, false);
+            editor.requestFocusInWindow();
+        });
+
+        JMenuItem itemCursiva = new JMenuItem("Cursiva");
+        ajustesitem(itemCursiva);
+        itemCursiva.addActionListener(e -> {
+            SimpleAttributeSet atributos = new SimpleAttributeSet();
+            StyleConstants.setItalic(atributos, true);
+            editor.setCharacterAttributes(atributos, false);
+            editor.requestFocusInWindow();
+        });
+
+        JMenuItem itemSubrayado = new JMenuItem("Subrayado");
+        ajustesitem(itemSubrayado);
+        itemSubrayado.addActionListener(e -> {
+            SimpleAttributeSet atributos = new SimpleAttributeSet();
+            StyleConstants.setUnderline(atributos, true);
+            editor.setCharacterAttributes(atributos, false);
+            editor.requestFocusInWindow();
+        });
+
+        JMenuItem itemTachado = new JMenuItem("Tachado");
+        ajustesitem(itemTachado);
+        itemTachado.addActionListener(e -> {
+            SimpleAttributeSet atributos = new SimpleAttributeSet();
+            StyleConstants.setStrikeThrough(atributos, true);
+            editor.setCharacterAttributes(atributos, false);
+            editor.requestFocusInWindow();
+        });
+
+        estilos.add(itemNegrita);
+        estilos.add(itemCursiva);
+        estilos.add(itemSubrayado);
+        estilos.add(itemTachado);
+        
+        barra.add(estilos);
+        barra.add(Box.createHorizontalStrut(30));
+        // --- FIN CÓDIGO NUEVO PARA ESTILOS ---
        
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 3, 6, 6));
-        panel.setPreferredSize(new Dimension(80, 50));
-        panel.setMaximumSize(new Dimension(80, 50));
+        panel.setLayout(new GridLayout(2, 4, 6, 6)); // Cambiado a 4 columnas para agregar el selector libre
+        panel.setPreferredSize(new Dimension(110, 50)); 
+        panel.setMaximumSize(new Dimension(110, 50));
         panel.setOpaque(true);
         panel.setBackground(new Color(245, 245, 245));
         panel.setBorder(BorderFactory.createCompoundBorder(
@@ -243,6 +290,21 @@ public class Editor extends JPanel{
         panel.add(yellow);
         panel.add(green);
         panel.add(orange);
+        
+        // --- INICIO CÓDIGO NUEVO PARA SELECTOR DE COLOR LIBRE ---
+        JButton btnMasColores = new JButton("+");
+        btnMasColores.setMargin(new Insets(0,0,0,0));
+        btnMasColores.setBackground(Color.WHITE);
+        btnMasColores.setFocusPainted(false);
+        btnMasColores.setBorder(BorderFactory.createLineBorder(new Color(120, 120, 120), 1));
+        btnMasColores.addActionListener(e -> {
+            Color colorSeleccionado = JColorChooser.showDialog(this, "Selecciona un color", Color.BLACK);
+            if (colorSeleccionado != null) {
+                aplicarColor(colorSeleccionado);
+            }
+        });
+        panel.add(btnMasColores);
+        // --- FIN CÓDIGO NUEVO PARA SELECTOR DE COLOR LIBRE ---
         
         barra.add(panel);
 
@@ -347,5 +409,3 @@ public class Editor extends JPanel{
         
     }
 }
-
-
