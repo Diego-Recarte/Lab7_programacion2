@@ -14,9 +14,10 @@ public class Lab7_progra2 {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
-        SwingUtilities.invokeLater(() -> {  new Pantalla().setVisible(true);
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new Pantalla().setVisible(true);
         });
     }
     
