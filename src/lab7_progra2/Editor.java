@@ -256,10 +256,23 @@ public class Editor extends JPanel{
         
         barra.add(estilos);
         barra.add(Box.createHorizontalStrut(30));
-        // --- FIN CÓDIGO NUEVO PARA ESTILOS ---
+        JButton botonTabla = new JButton("Insertar tabla");
+        botonTabla.setFont(new Font("Arial", Font.BOLD, 13));
+        botonTabla.setForeground(new Color(35, 35, 35));
+        botonTabla.setBackground(Color.WHITE);
+        botonTabla.setFocusPainted(false);
+        botonTabla.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(190, 190, 190), 1),
+                BorderFactory.createEmptyBorder(6, 12, 6, 12)
+        ));
+        botonTabla.addActionListener(e -> mostrarDialogoInsertarTabla());
+
+        barra.add(botonTabla);
+        barra.add(Box.createHorizontalStrut(30));
+
        
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 4, 6, 6)); // Cambiado a 4 columnas para agregar el selector libre
+        panel.setLayout(new GridLayout(2, 4, 6, 6)); 
         panel.setPreferredSize(new Dimension(110, 50)); 
         panel.setMaximumSize(new Dimension(110, 50));
         panel.setOpaque(true);
@@ -290,7 +303,7 @@ public class Editor extends JPanel{
         panel.add(green);
         panel.add(orange);
         
-        // --- INICIO CÓDIGO NUEVO PARA SELECTOR DE COLOR LIBRE ---
+       
         JButton btnMasColores = new JButton("+");
         btnMasColores.setMargin(new Insets(0,0,0,0));
         btnMasColores.setBackground(Color.WHITE);
@@ -303,7 +316,7 @@ public class Editor extends JPanel{
             }
         });
         panel.add(btnMasColores);
-        // --- FIN CÓDIGO NUEVO PARA SELECTOR DE COLOR LIBRE ---
+ 
         
         barra.add(panel);
 
@@ -407,4 +420,40 @@ public class Editor extends JPanel{
         
         
     }
+
+  
+    private void mostrarDialogoInsertarTabla() {
+        JSpinner spinnerFilas = new JSpinner(new SpinnerNumberModel(2, 1, 20, 1));
+        JSpinner spinnerColumnas = new JSpinner(new SpinnerNumberModel(2, 1, 10, 1));
+
+        JPanel panel = new JPanel(new GridLayout(2, 2, 8, 8));
+        panel.add(new JLabel("Filas:"));
+        panel.add(spinnerFilas);
+        panel.add(new JLabel("Columnas:"));
+        panel.add(spinnerColumnas);
+
+        int resultado = JOptionPane.showConfirmDialog(this, panel, "Insertar tabla",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (resultado == JOptionPane.OK_OPTION) {
+            int filas = (Integer) spinnerFilas.getValue();
+            int columnas = (Integer) spinnerColumnas.getValue();
+            insertarTabla(new TablaEditor(filas, columnas));
+        }
+    }
+
+    public void insertarTabla(TablaEditor tabla) {
+        if (editor == null) {
+            return;
+        }
+        editor.setCaretPosition(editor.getDocument().getLength());
+        editor.insertComponent(tabla);
+        try {
+            editor.getDocument().insertString(editor.getDocument().getLength(), "\n", null);
+        } catch (javax.swing.text.BadLocationException ex) {
+            // posición siempre válida (fin del documento); no debería ocurrir
+        }
+        editor.requestFocusInWindow();
+    }
+
 }
