@@ -6,7 +6,7 @@ package lab7_progra2;
 
 /**
  *
- * @author denam
+ * @author user
  */
     import java.awt.*;
 import javax.swing.*;
