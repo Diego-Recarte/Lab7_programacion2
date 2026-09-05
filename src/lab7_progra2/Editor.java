@@ -204,7 +204,6 @@ public class Editor extends JPanel{
         barra.add(fuente);
         barra.add(Box.createHorizontalStrut(30));
         
-        // --- INICIO CÓDIGO NUEVO PARA ESTILOS ---
         JMenu estilos = new JMenu("Estilos");
         estilos.setForeground(new Color(35, 35, 35));
         estilos.setFont(new Font("Arial", Font.BOLD, 14));
@@ -451,7 +450,6 @@ public class Editor extends JPanel{
         try {
             editor.getDocument().insertString(editor.getDocument().getLength(), "\n", null);
         } catch (javax.swing.text.BadLocationException ex) {
-            // posición siempre válida (fin del documento); no debería ocurrir
         }
         editor.requestFocusInWindow();
     }

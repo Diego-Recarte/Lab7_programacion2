@@ -9,10 +9,11 @@ package lab7_progra2;
  * @author denam
  */
 
-    import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import javax.swing.text.*;
+
 public class WordGuardarComo  extends JPanel{
     public JButton archivo;
     private Timer timer;
@@ -180,24 +181,39 @@ public class WordGuardarComo  extends JPanel{
         
         JButton Cargar = new JButton("Cargar");
 
-        Cargar .setFont(new Font("Arial", Font.BOLD, 14));
-        Cargar .setPreferredSize(new Dimension(200, 35));
-        Cargar .setMinimumSize(new Dimension(200, 35));
-        Cargar .setMaximumSize(new Dimension(200, 35));
+        Cargar.setFont(new Font("Arial", Font.BOLD, 14));
+        Cargar.setPreferredSize(new Dimension(200, 35));
+        Cargar.setMinimumSize(new Dimension(200, 35));
+        Cargar.setMaximumSize(new Dimension(200, 35));
         
 
-        Cargar .setForeground(Color.white);
-        Cargar .setOpaque(false);
+        Cargar.setForeground(Color.white);
+        Cargar.setOpaque(false);
 
-        Cargar .setFocusPainted(false);
-        Cargar .setBorderPainted(false);
-        Cargar .setContentAreaFilled(false);
-        Cargar .setOpaque(false);
+        Cargar.setFocusPainted(false);
+        Cargar.setBorderPainted(false);
+        Cargar.setContentAreaFilled(false);
+        Cargar.setOpaque(false);
 
-        Cargar .setHorizontalAlignment(SwingConstants.LEFT);
+        Cargar.setHorizontalAlignment(SwingConstants.LEFT);
 
-        Cargar .addActionListener(e -> {
-           
+        Cargar.addActionListener(e -> {
+            String nombreArchivo = JOptionPane.showInputDialog(this, "Ingrese el nombre del archivo a cargar:", "Cargar Archivo", JOptionPane.QUESTION_MESSAGE);
+            
+            if (nombreArchivo != null && !nombreArchivo.trim().isEmpty()) {
+                File archivoACargar = new File("src/datos/windows/Z/infoUsuarios/misDocumentos/" + nombreArchivo.trim() + ".wrd");
+                
+                try {
+                    WordArchivos.abrir(campo.label, campo.editor, archivoACargar);
+                    principal.show(cards, "editor");
+                } catch (FileNotFoundException ex) {
+                    labele.setText("El archivo no existe");
+                    timer.start();
+                } catch (Exception ex) {
+                    labele.setText("Error al cargar el archivo");
+                    timer.start();
+                }
+            }
         });
         
         panel.add(archivo);
