@@ -8,6 +8,7 @@ package lab7_progra2;
  *
  * @author denam
  */
+import javax.swing.SwingUtilities;
 public class Lab7_progra2 {
 
     /**
@@ -15,6 +16,8 @@ public class Lab7_progra2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        SwingUtilities.invokeLater(() -> {  new Pantalla().setVisible(true);
+        });
     }
     
 }
