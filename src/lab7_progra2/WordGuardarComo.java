@@ -162,10 +162,14 @@ public class WordGuardarComo extends JPanel {
         Cargar.setHorizontalAlignment(SwingConstants.LEFT);
 
         Cargar.addActionListener(e -> {
+            File carpetaInicial = new File("datos/Documentos");
+            if (!carpetaInicial.exists()) {
+                carpetaInicial.mkdirs();
+            }
+            
             JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filtro =
-                    new FileNameExtensionFilter("Archivos de este programa (*.wrd)", "wrd");
-
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de este programa (*.wrd)", "wrd");
+            chooser.setCurrentDirectory(carpetaInicial);
             chooser.setFileFilter(filtro);
             chooser.setAcceptAllFileFilterUsed(false);
 

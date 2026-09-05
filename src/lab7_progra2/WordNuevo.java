@@ -6,7 +6,7 @@ package lab7_progra2;
 
 /**
  *
- * @author user
+ * @author denam
  */
 
 import java.awt.*;
@@ -168,7 +168,12 @@ public class WordNuevo extends JPanel {
         Cargar.setHorizontalAlignment(SwingConstants.LEFT);
 
         Cargar.addActionListener(e -> {
+            File carpetaInicial = new File("datos/Documentos");
+            if (!carpetaInicial.exists()) {
+                carpetaInicial.mkdirs();
+            }
             JFileChooser chooser = new JFileChooser();
+            chooser.setCurrentDirectory(carpetaInicial);
             FileNameExtensionFilter filtro =
                     new FileNameExtensionFilter("Archivos de este programa (*.wrd)", "wrd");
 

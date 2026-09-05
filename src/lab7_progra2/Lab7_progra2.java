@@ -6,7 +6,7 @@ package lab7_progra2;
 
 /**
  *
- * @author user
+ * @author denam
  */
 import javax.swing.SwingUtilities;
 public class Lab7_progra2 {

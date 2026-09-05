@@ -6,7 +6,7 @@ package lab7_progra2;
 
 /**
  *
- * @author user
+ * @author denam
  */
 
 import java.awt.Color;
@@ -49,8 +49,7 @@ public class WordArchivos {
         synchronized (LOCK_ARCHIVOS) {
 
             if (nombre == null || nombre.trim().isEmpty()) {
-                throw new WordException.DatosInvalidosException(
-                        "El nombre del documento no puede estar vacío.");
+                throw new WordException.DatosInvalidosException( "El nombre del documento no puede estar vacío.");
             }
 
             if (isGuardarComo && archivo.exists()) {
@@ -59,16 +58,14 @@ public class WordArchivos {
             }
 
             if (!isGuardarComo && !archivo.exists()) {
-                throw new WordException.ArchivoNoExisteParaGuardarException(
-                        "El documento aún no existe; use \"Guardar como\" primero.");
+                throw new WordException.ArchivoNoExisteParaGuardarException("El documento aún no existe; use \"Guardar como\" primero.");
             }
 
             ArrayList<Object> elementos = extraerElementos(editor);
 
             File carpeta = archivo.getParentFile();
             if (carpeta != null && !carpeta.exists() && !carpeta.mkdirs()) {
-                throw new WordException.ErrorEscrituraException(
-                        "No se pudo crear la carpeta de destino: " + carpeta, null);
+                throw new WordException.ErrorEscrituraException( "No se pudo crear la carpeta de destino: " + carpeta, null);
             }
 
             try (RandomAccessFile raf = new RandomAccessFile(archivo, "rw")) {
@@ -79,8 +76,7 @@ public class WordArchivos {
                 escribirElementos(raf, elementos);
                 return true;
             } catch (IOException e) {
-                throw new WordException.ErrorEscrituraException(
-                        "No se pudo escribir el archivo: " + e.getMessage(), e);
+                throw new WordException.ErrorEscrituraException("No se pudo escribir el archivo: " + e.getMessage(), e);
             }
         }
     }
@@ -91,13 +87,11 @@ public class WordArchivos {
         synchronized (LOCK_ARCHIVOS) {
 
             if (archivo == null || !archivo.exists()) {
-                throw new WordException.ArchivoNoExisteParaGuardarException(
-                        "El archivo no existe; use \"Guardar como\" primero.");
+                throw new WordException.ArchivoNoExisteParaGuardarException( "El archivo no existe; use \"Guardar como\" primero.");
             }
 
             if (nombre == null || nombre.trim().isEmpty()) {
-                throw new WordException.DatosInvalidosException(
-                        "El nombre del documento no puede estar vacío.");
+                throw new WordException.DatosInvalidosException("El nombre del documento no puede estar vacío.");
             }
 
             ArrayList<Object> elementos = extraerElementos(editor);
@@ -110,8 +104,7 @@ public class WordArchivos {
                 escribirElementos(raf, elementos);
                 return true;
             } catch (IOException e) {
-                throw new WordException.ErrorEscrituraException(
-                        "No se pudo escribir el archivo: " + e.getMessage(), e);
+                throw new WordException.ErrorEscrituraException( "No se pudo escribir el archivo: " + e.getMessage(), e);
             }
         }
     }
@@ -144,16 +137,7 @@ public class WordArchivos {
                     boolean subrayado = StyleConstants.isUnderline(atributos);
                     boolean tachado = StyleConstants.isStrikeThrough(atributos);
 
-                    lista.add(new wordFragmento(
-                            texto,
-                            fuente,
-                            tamano,
-                            color,
-                            negrita,
-                            cursiva,
-                            subrayado,
-                            tachado
-                    ));
+                    lista.add(new wordFragmento( texto, fuente,tamano,color,negrita,cursiva,subrayado, tachado));
                 }
 
                 i = fin;
@@ -237,19 +221,16 @@ public class WordArchivos {
     public static void abrir(JLabel titulo, JTextPane editor, File archivo) throws WordException {
 
         if (archivo == null || !archivo.exists()) {
-            throw new WordException.ArchivoNoEncontradoException(
-                    "El archivo no existe.");
+            throw new WordException.ArchivoNoEncontradoException( "El archivo no existe.");
         }
 
         if (!archivo.isFile()) {
-            throw new WordException.ArchivoInvalidoException(
-                    "La ruta indicada no es un archivo válido.");
+            throw new WordException.ArchivoInvalidoException("La ruta indicada no es un archivo válido.");
         }
 
         String nombreArchivo = archivo.getName().toLowerCase();
         if (!nombreArchivo.endsWith(EXTENSION)) {
-            throw new WordException.ExtensionInvalidaException(
-                    "La extensión debe ser " + EXTENSION + ".");
+            throw new WordException.ExtensionInvalidaException("La extensión debe ser " + EXTENSION + ".");
         }
 
         StyledDocument temporal = new DefaultStyledDocument();
@@ -259,15 +240,12 @@ public class WordArchivos {
 
             String firmaLeida = raf.readUTF();
             if (!FIRMA.equals(firmaLeida)) {
-                throw new WordException.FormatoDesconocidoException(
-                        "El archivo no pertenece al formato propio del editor.");
+                throw new WordException.FormatoDesconocidoException( "El archivo no pertenece al formato propio del editor.");
             }
 
             int versionLeida = raf.readInt();
             if (versionLeida != VERSION) {
-                throw new WordException.VersionNoCompatibleException(
-                        "Versión de archivo no compatible (se encontró v" + versionLeida
-                                + ", se esperaba v" + VERSION + ").");
+                throw new WordException.VersionNoCompatibleException( "Versión de archivo no compatible (se encontró v" + versionLeida  + ", se esperaba v" + VERSION + ").");
             }
 
             nombre = raf.readUTF();
@@ -277,9 +255,8 @@ public class WordArchivos {
             }
 
             int cantidadElementos = raf.readInt();
-            if (cantidadElementos < 0 || cantidadElementos > 100000) {
-                throw new WordException.DatosInvalidosException(
-                        "Cantidad de elementos inválida.");
+            if (cantidadElementos < 0) {
+                throw new WordException.DatosInvalidosException( "Cantidad de elementos inválida.");
             }
 
             for (int i = 0; i < cantidadElementos; i++) {
