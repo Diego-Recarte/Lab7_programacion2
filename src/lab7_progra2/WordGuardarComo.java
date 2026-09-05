@@ -71,7 +71,7 @@ public class WordGuardarComo extends JPanel {
         panel.setMinimumSize(new Dimension(300, 1200));
         panel.setMaximumSize(new Dimension(300, 1200));
         panel.setOpaque(true);
-        panel.setBackground(Color.blue);
+        panel.setBackground(new Color(0, 128, 0));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         archivo = new JButton("Archivo");
@@ -220,7 +220,7 @@ public class WordGuardarComo extends JPanel {
         label.setPreferredSize(new Dimension(400, 100));
         label.setMaximumSize(new Dimension(400, 100));
         label.setMinimumSize(new Dimension(400, 100));
-        label.setForeground(Color.blue);
+        label.setForeground(new Color(0, 128, 0));
         label.setOpaque(false);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -242,7 +242,7 @@ public class WordGuardarComo extends JPanel {
         boton3.setMaximumSize(new Dimension(500, 50));
         boton3.setMinimumSize(new Dimension(500, 50));
         boton3.setForeground(Color.WHITE);
-        boton3.setBackground(Color.blue);
+        boton3.setBackground(new Color(0, 128, 0));
         boton3.setFocusPainted(false);
         boton3.setBorderPainted(false);
         boton3.setContentAreaFilled(false);

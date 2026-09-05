@@ -46,7 +46,7 @@ public class Editor extends JPanel {
         barra.setMaximumSize(new Dimension(1300, 42));
         barra.setPreferredSize(new Dimension(1300, 42));
         barra.setMinimumSize(new Dimension(1300, 42));
-        barra.setBackground(Color.BLUE);
+        barra.setBackground(new Color(0, 128, 0));
         barra.setForeground(Color.WHITE);
         barra.setFont(new Font("Arial", Font.BOLD, 14));
 
