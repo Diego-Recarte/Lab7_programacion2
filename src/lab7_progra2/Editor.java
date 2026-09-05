@@ -1,4 +1,3 @@
-
 package lab7_progra2;
 
 import java.awt.*;
@@ -215,8 +214,9 @@ public class Editor extends JPanel{
         JMenuItem itemNegrita = new JMenuItem("Negrita");
         ajustesitem(itemNegrita);
         itemNegrita.addActionListener(e -> {
+            boolean estadoActual = StyleConstants.isBold(editor.getCharacterAttributes());
             SimpleAttributeSet atributos = new SimpleAttributeSet();
-            StyleConstants.setBold(atributos, true);
+            StyleConstants.setBold(atributos, !estadoActual);
             editor.setCharacterAttributes(atributos, false);
             editor.requestFocusInWindow();
         });
@@ -224,8 +224,9 @@ public class Editor extends JPanel{
         JMenuItem itemCursiva = new JMenuItem("Cursiva");
         ajustesitem(itemCursiva);
         itemCursiva.addActionListener(e -> {
+            boolean estadoActual = StyleConstants.isItalic(editor.getCharacterAttributes());
             SimpleAttributeSet atributos = new SimpleAttributeSet();
-            StyleConstants.setItalic(atributos, true);
+            StyleConstants.setItalic(atributos, !estadoActual);
             editor.setCharacterAttributes(atributos, false);
             editor.requestFocusInWindow();
         });
@@ -233,8 +234,9 @@ public class Editor extends JPanel{
         JMenuItem itemSubrayado = new JMenuItem("Subrayado");
         ajustesitem(itemSubrayado);
         itemSubrayado.addActionListener(e -> {
+            boolean estadoActual = StyleConstants.isUnderline(editor.getCharacterAttributes());
             SimpleAttributeSet atributos = new SimpleAttributeSet();
-            StyleConstants.setUnderline(atributos, true);
+            StyleConstants.setUnderline(atributos, !estadoActual);
             editor.setCharacterAttributes(atributos, false);
             editor.requestFocusInWindow();
         });
@@ -242,8 +244,9 @@ public class Editor extends JPanel{
         JMenuItem itemTachado = new JMenuItem("Tachado");
         ajustesitem(itemTachado);
         itemTachado.addActionListener(e -> {
+            boolean estadoActual = StyleConstants.isStrikeThrough(editor.getCharacterAttributes());
             SimpleAttributeSet atributos = new SimpleAttributeSet();
-            StyleConstants.setStrikeThrough(atributos, true);
+            StyleConstants.setStrikeThrough(atributos, !estadoActual);
             editor.setCharacterAttributes(atributos, false);
             editor.requestFocusInWindow();
         });
