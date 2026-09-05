@@ -9,12 +9,9 @@ package lab7_progra2;
  * @author denam
  */
 
-import javax.swing.*;
-import java.io.*;
 import java.awt.*;
+
 public class wordFragmento {
-    
-   
 
     private String texto;
     private String fuente;
@@ -23,9 +20,10 @@ public class wordFragmento {
     private boolean negrita;
     private boolean cursiva;
     private boolean subrayado;
+    private boolean tachado;
 
     public wordFragmento(String texto, String fuente, int tamano, Color color,
-                         boolean negrita, boolean cursiva, boolean subrayado) {
+                         boolean negrita, boolean cursiva, boolean subrayado, boolean tachado) {
         this.texto = texto;
         this.fuente = fuente;
         this.tamano = tamano;
@@ -33,6 +31,7 @@ public class wordFragmento {
         this.negrita = negrita;
         this.cursiva = cursiva;
         this.subrayado = subrayado;
+        this.tachado = tachado;
     }
 
     public String getTexto() {
@@ -61,5 +60,9 @@ public class wordFragmento {
 
     public boolean isSubrayado() {
         return subrayado;
+    }
+
+    public boolean isTachado() {
+        return tachado;
     }
 }
