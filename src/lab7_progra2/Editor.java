@@ -498,29 +498,29 @@ public class Editor extends JPanel {
         int inicio = editor.getSelectionStart();
         int fin = editor.getSelectionEnd();
 
-        if (inicio == fin) {
-            return;
-        }
-
         StyledDocument documento = editor.getStyledDocument();
 
-        AttributeSet atributosInicio =
-                documento.getCharacterElement(inicio).getAttributes();
+        AttributeSet atributosActuales;
+        if (inicio != fin) {
+            atributosActuales = documento.getCharacterElement(inicio).getAttributes();
+        } else {
+            atributosActuales = editor.getInputAttributes();
+        }
 
         boolean activo = false;
 
         switch (tipo) {
             case 1:
-                activo = StyleConstants.isBold(atributosInicio);
+                activo = StyleConstants.isBold(atributosActuales);
                 break;
             case 2:
-                activo = StyleConstants.isItalic(atributosInicio);
+                activo = StyleConstants.isItalic(atributosActuales);
                 break;
             case 3:
-                activo = StyleConstants.isUnderline(atributosInicio);
+                activo = StyleConstants.isUnderline(atributosActuales);
                 break;
             case 4:
-                activo = StyleConstants.isStrikeThrough(atributosInicio);
+                activo = StyleConstants.isStrikeThrough(atributosActuales);
                 break;
         }
 
@@ -541,12 +541,16 @@ public class Editor extends JPanel {
                 break;
         }
 
-        documento.setCharacterAttributes(
-                inicio,
-                fin - inicio,
-                atributos,
-                false
-        );
+        if (inicio != fin) {
+            documento.setCharacterAttributes(
+                    inicio,
+                    fin - inicio,
+                    atributos,
+                    false
+            );
+        } else {
+            editor.setCharacterAttributes(atributos, false);
+        }
 
         editor.requestFocusInWindow();
     }
