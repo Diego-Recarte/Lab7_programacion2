@@ -8,7 +8,7 @@ package lab7_progra2;
  *
  * @author user
  */
-    import java.awt.*;
+import java.awt.*;
 import javax.swing.*;
 import java.io.*;
 import javax.swing.text.*;

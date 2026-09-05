@@ -1,6 +1,5 @@
 package lab7_progra2;
 
-
 public class WordException extends Exception {
 
     public WordException(String mensaje) {
