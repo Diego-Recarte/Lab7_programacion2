@@ -16,12 +16,13 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 public class Editor extends JPanel{
     
-
+    public boolean IsExistente;
     public JLabel label;
     public JTextPane editor;
     private JScrollPane scrollEditor;
     
     public Editor (Component padre, CardLayout principal, JPanel cards){
+        IsExistente = false;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(800, 500));
         setOpaque(false);

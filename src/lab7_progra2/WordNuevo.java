@@ -38,7 +38,7 @@ public class WordNuevo  extends JPanel{
         }catch (BadLocationException ev){
             
         }
-        Inicializarbotones(campo,principal,  cards);
+        Inicializarbotones(campo,principal,  cards, padre);
         
         
     }
@@ -200,13 +200,13 @@ public class WordNuevo  extends JPanel{
 
     }
     
-   private void Inicializarbotones(Editor campo, CardLayout principal, JPanel cards){
+   private void Inicializarbotones(Editor campo, CardLayout principal, JPanel cards, Pantalla padre){
         JPanel Panelenvuelto =new JPanel(new GridBagLayout());
         Panelenvuelto.setOpaque(false);
         
-        JLabel label = new JLabel("Ingresa Nuevo Nombre");
+        JLabel label = new JLabel("Nuevo Documento");
 
-        label.setFont(new Font("Arial", Font.BOLD, 35));
+        label.setFont(new Font("Arial", Font.BOLD, 30));
         label.setPreferredSize(new Dimension(400, 100));
         label.setMaximumSize(new Dimension(400, 100));
         label.setMinimumSize(new Dimension(400, 100));
@@ -218,24 +218,6 @@ public class WordNuevo  extends JPanel{
 
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-
-        JTextField nombre = new JTextField(" ");
-
-        nombre .setFont(new Font("Arial", Font.BOLD, 14));
-        nombre .setPreferredSize(new Dimension(500, 50));
-        nombre .setMaximumSize(new Dimension(500, 50));
-         nombre .setMinimumSize(new Dimension(500, 50));
-
-        nombre .setForeground(Color.black);
-  
-
-      
-        nombre .setOpaque(false);
-        nombre.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        nombre .setHorizontalAlignment(SwingConstants.CENTER);
-        nombre .setAlignmentX(Component.CENTER_ALIGNMENT);
-
        
         
         
@@ -258,15 +240,17 @@ public class WordNuevo  extends JPanel{
 
         boton3.addActionListener(e -> {
             
-            if (!nombre.getText().trim().equals("")){
-            campo.ingresarContenido(null, nombre.getText().trim());
-            nombre.setText("");
+           
+            campo.ingresarContenido(null, "Nuevo archivo");
+           
             archivo.setVisible(true);
             Guardar.setVisible(true);
             Guardarc.setVisible(true);
+            campo.IsExistente= false;
+            padre.cambiarGuardar();
             
              principal.show(cards, "editor");
-            }
+            
         });
         
         JPanel panel = new JPanel();
@@ -281,7 +265,7 @@ public class WordNuevo  extends JPanel{
         
         panel.add(label);
         panel.add(Box.createVerticalStrut(10));
-        panel.add(nombre);
+       
         panel.add(Box.createVerticalStrut(10));
         panel.add(boton3);
         Panelenvuelto.add(panel);

@@ -83,5 +83,16 @@ public class Pantalla extends JFrame{
         panelCards.revalidate();
         panelCards.repaint(); 
     }
+    
+    
+    public void cambiarGuardar(){
+        if (editor.IsExistente){
+            guardarComo.Guardar.setVisible(true);
+            nuevo.Guardar.setVisible(true);
+        }else{
+            guardarComo.Guardar.setVisible(false);
+            nuevo.Guardar.setVisible(false);
+        }
+    }
 }
 
